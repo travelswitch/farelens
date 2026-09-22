@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>FareLens Admin</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236d4dff'/%3E%3Cstop offset='1' stop-color='%23442690'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='16' r='15' fill='url(%23g)'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%23fff' stroke-width='3' stroke-dasharray='33 11' transform='rotate(-35 16 16)'/%3E%3Ccircle cx='23' cy='9' r='2.5' fill='%23fff'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="/ui/assets/styles.css" />
+</head>
+<body>
+  <noscript>FareLens Admin requires JavaScript.</noscript>
+
+  <!-- Login -->
+  <section id="view-login" class="auth-screen" hidden>
+    <form id="login-form" class="auth-card" autocomplete="on">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <h1>FareLens</h1>
+          <p class="muted">Airline fare rules, explained.</p>
+        </div>
+      </div>
+      <label class="field">
+        <span>Username</span>
+        <input name="username" type="text" autocomplete="username" required autofocus />
+      </label>
+      <label class="field">
+        <span>Password</span>
+        <input name="password" type="password" autocomplete="current-password" required />
+      </label>
+      <p id="login-error" class="form-error" role="alert" hidden></p>
+      <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+      <a class="powered-by centered" href="https://travelswitch.com/" target="_blank" rel="noopener" title="TravelSwitch">
+        <span class="muted small">Built by</span>
+        <img src="/ui/assets/travelswitch-logo.png" alt="TravelSwitch" />
+        <span class="muted small">for the travel-tech community</span>
+      </a>
+    </form>
+  </section>
+
+  <!-- App shell -->
+  <div id="view-app" class="shell" hidden>
+    <aside class="sidebar">
+      <div class="brand compact">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">FareLens</span>
+      </div>
+      <nav class="nav" aria-label="Main">
+        <a href="#/overview" data-route="overview">Overview</a>
+        <a href="#/usage" data-route="usage">Usage</a>
+        <a href="#/llm" data-route="llm">LLM provider</a>
+        <a href="#/api-keys" data-route="api-keys">API keys</a>
+        <a href="#/datastores" data-route="datastores">Data stores</a>
+        <a href="#/prompts" data-route="prompts">Prompts</a>
+        <a href="#/playground" data-route="playground">Playground</a>
+        <a href="#/account" data-route="account">Account</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="/docs" target="_blank" rel="noopener">API docs ↗</a>
+        <span id="app-version" class="muted small"></span>
+        <a class="powered-by" href="https://travelswitch.com/" target="_blank" rel="noopener" title="TravelSwitch">
+          <span class="muted small">Built by</span>
+          <img src="/ui/assets/travelswitch-logo.png" alt="TravelSwitch" />
+          <span class="muted small">for the travel-tech community</span>
+        </a>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <h2 id="page-title">Overview</h2>
+        <div class="topbar-right">
+          <span id="topbar-user" class="muted"></span>
+          <button id="logout-btn" class="btn btn-ghost" type="button">Sign out</button>
+        </div>
+      </header>
+      <div id="password-banner" class="banner banner-warn" hidden>
+        You are using the default password. <a href="#/account">Change it now</a>.
+      </div>
+      <div id="llm-banner" class="banner banner-info" hidden>
+        No LLM provider is configured yet — the API will return 503 until you <a href="#/llm">set one up</a>.
+      </div>
+      <div id="page" class="page"></div>
+    </main>
+  </div>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <div id="modal-root"></div>
+
+  <script src="/ui/assets/app.js"></script>
+</body>
+</html>

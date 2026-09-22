@@ -1,0 +1,65 @@
+[project]
+name = "farelens"
+version = "1.0.0"
+description = "Open-source airline fare-rules summarizer and Q&A chat API, powered by the LLM provider of your choice."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+authors = [{ name = "TravelSwitch" }]
+keywords = ["airline", "fare-rules", "travel", "llm", "fastapi", "summarization", "chat"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Framework :: FastAPI",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+]
+dependencies = [
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.30,<1",
+  "pydantic>=2.7,<3",
+  "pydantic-settings>=2.3,<3",
+  "asyncpg>=0.29,<1",
+  "redis>=5.0,<7",
+  "cryptography>=42",
+  "bcrypt>=4.1,<5",
+  "PyJWT>=2.8,<3",
+  "openai>=1.40,<3",
+  "anthropic>=0.40",
+  "google-genai>=1.0,<2",
+  "boto3>=1.34,<2",
+  "python-multipart>=0.0.9",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+  "pytest-asyncio>=0.23",
+  "httpx>=0.27",
+  "ruff>=0.5",
+]
+
+[project.urls]
+Homepage = "https://github.com/travelswitch/farelens"
+Issues = "https://github.com/travelswitch/farelens/issues"
+
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["farelens*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501", "B008"]  # B008: FastAPI's Depends() in defaults is idiomatic

@@ -1,0 +1,79 @@
+# ---------------------------------------------------------------------------
+# FareLens - one-command stack: API + admin UI, Postgres, Redis.
+#
+#   cp .env.example .env      # optional, defaults work out of the box
+#   docker compose up -d
+#   open http://localhost:8000   (login: admin / admin)
+# ---------------------------------------------------------------------------
+name: farelens
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: farelens/farelens:latest
+    container_name: farelens-app
+    restart: unless-stopped
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      APP_DATA_DIR: /data
+      # Defaults for the bundled datastores; a .env file can override these.
+      DATABASE_URL: ${DATABASE_URL:-postgresql://${POSTGRES_USER:-farelens}:${POSTGRES_PASSWORD:-farelens}@postgres:5432/${POSTGRES_DB:-farelens}}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+    ports:
+      - "${PORT:-8000}:8000"
+    volumes:
+      - farelens_data:/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: farelens-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-farelens}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-farelens}
+      POSTGRES_DB: ${POSTGRES_DB:-farelens}
+    volumes:
+      - farelens_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-farelens} -d ${POSTGRES_DB:-farelens}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    # Uncomment to reach the bundled Postgres from your host machine:
+    # ports:
+    #   - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    container_name: farelens-redis
+    restart: unless-stopped
+    command: ["redis-server", "--save", "60", "1", "--appendonly", "yes", "--maxmemory-policy", "allkeys-lru"]
+    volumes:
+      - farelens_redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    # ports:
+    #   - "6379:6379"
+
+volumes:
+  farelens_data:
+  farelens_postgres:
+  farelens_redis:
