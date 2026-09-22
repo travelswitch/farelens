@@ -1,6 +1,6 @@
 <h1 align="center">FareLens</h1>
 
-<p align="center"><strong>Airline fare rules, explained.</strong><br/>
+<p align="center"><strong>Airline fare rules, explained.</strong> · <a href="https://travelswitch.github.io/farelens/">Website</a> · <a href="docs/FareLens.pdf">Guide (PDF)</a><br/>
 Self-hosted API + admin UI that turns raw airline fare-rules text into traveller-friendly summaries and answers questions about them — using the LLM provider <em>you</em> choose.</p>
 
 <p align="center">
@@ -18,6 +18,8 @@ Self-hosted API + admin UI that turns raw airline fare-rules text into traveller
 ---
 
 ## Why
+
+**FareLens** is an open-source **airline fare rules API** for OTAs, airlines, TMCs and travel-tech teams: it converts raw fare rules and fare-family descriptions from **Amadeus NDC**, Sabre, Travelport, EDIFACT or airline APIs into plain-language, multilingual summaries and a Q&A chat about cancellation, change, refund and no-show penalties, using your own LLM (OpenAI, Azure OpenAI, Anthropic Claude, Google Gemini, Groq, AWS Bedrock).
 
 Airline fare rules are long, uppercase, telegraphic and full of ATPCO jargon (`NON-REF`, `RFND`, `CHG PEN`, `NOSHOW`…). Travellers just want to know *"what does it cost me to cancel or change?"*. FareLens answers that in plain language, in the traveller's language, on desktop or mobile — and caches the result so repeated fare rules cost zero tokens.
 
