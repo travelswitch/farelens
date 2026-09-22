@@ -23,9 +23,16 @@ Airline fare rules are long, uppercase, telegraphic and full of ATPCO jargon (`N
 
 ### The problem this solves (GDS / NDC integrators)
 
-If you consume airline content through a GDS — we run on **Amadeus** — you will have hit this: in **NDC flows the fare-family / price-class descriptions and fare rules are passed through exactly as the airline supplies them**. There is no GDS-generated short text (unlike EDIFACT), no parameter to control length, and no standardisation across carriers. The result is long, inconsistent blobs — often with detailed conditions or URLs embedded — that are unusable in a B2C booking flow. When we raised it, the answer was that this is by design and compliant with the NDC standard, i.e. **the integrator has to solve it**.
+If you consume airline content through a GDS (we run on **Amadeus**), you will have hit this in NDC flows:
 
-FareLens is that solution: feed it whatever the airline returned, get back a consistent, short, structured summary (and a Q&A channel for the follow-up questions travellers actually ask). It is content-source agnostic — Amadeus, Sabre, Travelport, direct-connect NDC or an airline API all produce the same clean output.
+- **Fare-family, price-class and fare-rule text is passed through exactly as the airline supplies it.** The GDS does not generate a short version the way it does for EDIFACT.
+- **There is no parameter to control the length**, and no standardisation across carriers.
+- **The text is often long and inconsistent**, with detailed conditions or URLs embedded, which makes it unusable in a B2C booking flow.
+- **This is by design.** When raised with the GDS, the position is that the behaviour is compliant with the NDC standard, so the integrator has to solve it.
+
+FareLens is that solution. Feed it whatever the airline returned and get back a consistent, short, structured summary, plus a Q&A channel for the follow-up questions travellers actually ask.
+
+It is content-source agnostic: Amadeus, Sabre, Travelport, direct-connect NDC or an airline API all produce the same clean output.
 
 ## What you get
 
